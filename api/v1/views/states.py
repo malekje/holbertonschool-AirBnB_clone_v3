@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" api state view """
+""" 
+api state view 
+"""
+
 from flask import request, jsonify , abort
 from models import storage
 from models.state import State
