@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-""" 
-api state view 
+"""
+api
 """
 
 from flask import request, jsonify , abort
