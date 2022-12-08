@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" API """
+""" Flask app """
 from models import storage
 from api.v1.views import app_views
 from flask import Flask, Blueprint, make_response, jsonify
