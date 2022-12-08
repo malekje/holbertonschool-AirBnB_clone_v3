@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
-api
+states view for api
 """
+
 
 from flask import request, jsonify , abort
 from models import storage
