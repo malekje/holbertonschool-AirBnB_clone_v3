@@ -38,20 +38,26 @@ def del_state(state_id=None):
         storage.save()
         return jsonify({}), 200
 
+
 @app_views.route('/states', methods=['POST'],
                  strict_slashes=False)
 def touch_state():
     """ create a state """
-    sta = request.get_json(silent=True)
-    if sta is None:
-        abort(400, "Not a JSON")
-    elif "name" not in sta.keys():
-        abort(400, "Missing name")
-    else:
-        new_sta = state.State(**sta)
-        storage.new(new_sta)
-        storage.save()
-        return jsonify(new_sta.to_dict()), 201
+    try:
+        body = request.get_json()
+
+        if body is None:
+            abort(400, description="Not a JSON")
+        elif body.get('name') is None:
+            abort(400, description='Missing name')
+        else:
+            obj = State(**body)
+            storage.new(obj)
+            storage.save()
+            return jsonify(obj.to_dict()), 201
+    except ValueError:
+        abort(400, desciption="Not a JSON")
+
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id=None):
