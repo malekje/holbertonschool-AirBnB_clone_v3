@@ -11,8 +11,8 @@ from models.user import User
 @app_views.route('/users',
                  strict_slashes=False,
                  methods=['GET'])
-def view_users():
-    """ view all users """
+def get_users():
+    """ Get All users"""
     users = storage.all(User).values()
 
     return jsonify([user.to_dict() for user in users])
@@ -22,7 +22,7 @@ def view_users():
                  strict_slashes=False,
                  methods=['GET'])
 def get_user(user_id):
-    """ get user """
+    """ Get user with Id"""
     user = storage.get(User, user_id)
     if not user:
         abort(404)
@@ -32,8 +32,8 @@ def get_user(user_id):
 @app_views.route('/users/<user_id>',
                  strict_slashes=False,
                  methods=['DELETE'])
-def del_user(user_id):
-    """ delete user fully """
+def delete_user(user_id):
+    """ DELETE user With id"""
     user = storage.get(User, user_id)
     if not user:
         abort(404)
@@ -46,8 +46,8 @@ def del_user(user_id):
 @app_views.route('/users',
                  strict_slashes=False,
                  methods=['POST'])
-def touch_user():
-    """ create user """
+def post_user():
+    """ Crate users"""
     try:
         body = request.get_json()
 
@@ -68,7 +68,7 @@ def touch_user():
 
 @app_views.route('/users/<user_id>', methods=["PUT"])
 def update_user(user_id):
-    """ update user """
+    """UPDATE a single users"""
     found = storage.get(User, user_id)
     if not found:
         abort(404)

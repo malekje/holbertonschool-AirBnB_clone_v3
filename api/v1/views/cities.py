@@ -1,19 +1,19 @@
 #!/usr/bin/python3
 """
-api
+city
 """
 from flask import jsonify, abort, request
 from api.v1.views import app_views
-from models.state import State
 from models import storage
 from models.city import City
+from models.state import State
 
 
 @app_views.route('/states/<state_id>/cities',
                  strict_slashes=False,
                  methods=['GET'])
-def retrieve_cities(state_id):
-    """ request every city obj in state"""
+def get_cities(state_id):
+    """ Get All  city obj in state"""
     state = storage.get(State, state_id)
     if not state:
         abort(404)
@@ -23,8 +23,8 @@ def retrieve_cities(state_id):
 @app_views.route('/cities/<city_id>',
                  strict_slashes=False,
                  methods=['GET'])
-def view_city(city_id):
-    """ request city within its id"""
+def get_city(city_id):
+    """ Get city with Id"""
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -34,8 +34,8 @@ def view_city(city_id):
 @ app_views.route('/cities/<city_id>',
                   strict_slashes=False,
                   methods=['DELETE'])
-def del_city(city_id):
-    """ delete city fully"""
+def delete_city(city_id):
+    """ DELETE City With id"""
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -48,7 +48,7 @@ def del_city(city_id):
 @ app_views.route('/states/<state_id>/cities',
                   strict_slashes=False,
                   methods=['POST'])
-def touch_city(state_id):
+def post_city(state_id):
     """ create city """
     state = storage.get(State, state_id)
     if state is None:
@@ -73,7 +73,7 @@ def touch_city(state_id):
 
 @ app_views.route('/cities/<city_id>', methods=["PUT"])
 def update_city(city_id):
-    """ update city"""
+    """update city"""
     found = storage.get(City, city_id)
     if not found:
         abort(404)
